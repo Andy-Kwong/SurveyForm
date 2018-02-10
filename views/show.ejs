@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submitted Information</title>
+</head>
+<body>
+    <div class="wrapper">
+    <fieldset>
+        <h3>Submitted Information</h3>
+        <div class="information">
+            <table>
+                <tr>
+                    <td>Your Name:</td>
+                    <td><%= name %></td>
+                </tr>
+                <tr>
+                    <td>Dojo Location:</td>
+                    <td><%= location %></td>
+                </tr>
+                <tr>
+                    <td>Favorite Language:</td>
+                    <td><%= language %></td>
+                </tr>
+                <tr>
+                    <td>Comment:</td>
+                    <td><%= comment %></td>
+                </tr>
+            </table>
+            <form action="/" method = "get">
+                <input type="submit" value = "Go Back">
+            </form>
+        </div>
+    </fieldset>
+    </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="infoCard">
+            <fieldset>
+                <p id="passedInfo"></p>
+                <p id="luckyNumber"></p>
+            </fieldset>
+        <script type = "text/javascript" src= "/socket.io/socket.io.js"></script>
+<script type "text/javascript">
+    
+    $(document).ready(function(){
+        var socket = io.connect("http://localhost:6500");
+        $("#infoForm").submit(function() {
+            var result = {
+                name : $('#formName').val(),
+                location: $('#location').val(),
+                language: $('#language').val(),
+                comment: $('#comment').val()
+            };
+            socket.emit("submit_form", result);
+            return false
+        })
+        socket.on("server_response", function(data) {
+            document.getElementById("passedInfo").innerHTML = `name: ${data.name}, location: ${data.location}, language: ${data.language}, comment: ${data.comment}`;
+            document.getElementById("luckyNumber").innerHTML = `Your lucky number emitted by the server is ${data.number}.`
+            console.log(data.response);
+        })
+    });
+</script>
+        </div>
+        <form id = "infoForm" action =""> 
+        <fieldset>
+            <table>
+                <tr>
+                    <td>Your Name:</td>
+                    <td><input id = "formName" type="text" name = "name"></td>
+                </tr>
+                <tr>
+                    <td>Dojo Location:</td>
+                    <td>
+                        <select name="location" id = "location">
+                            <option value="Mountain View">Mountain View</option>
+                            <option value="Chicago">Chicago</option>
+                            <option value="New York">New York</option>
+                            <option value="Seattle">Seattle</option>
+                            <option value="Silicon Valley">Silicon Valley</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Favorite Language:</td>
+                    <td>
+                        <select name="language" id = "language">
+                            <option value="Javascript">Javascript</option>
+                            <option value="Python">Python</option>
+                            <option value="Swift">Swift</option>
+                            <option value="Java">Java</option>
+                            <option value="C++">C++</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Comment (optional):</td>
+                    <td><textarea name="comment" cols="30" rows="5" id = "comment"></textarea></td>
+                </tr>
+            </table>
+            <input id = "formInput" type="submit" value="Submit">
+        </form>
+        </fieldset>
+    </div>
+</body>
+</html>
